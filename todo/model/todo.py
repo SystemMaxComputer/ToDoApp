@@ -27,3 +27,21 @@ class TodoBook:
         code_id: int = len(self.todos) + 1
         self.todos[code_id] = Todo(code_id, title, description)
         return code_id
+
+    def pending_todos(self) -> list[Todo]:
+        return [todo for todo in self.todos.values() if not todo.completed]
+
+    def completed_todos(self) -> list[Todo]:
+        return [todo for todo in self.todos.values() if todo.completed]
+
+    def tags_todo_count(self) -> dict[str, int]:
+        tag_count = {}
+
+        for todo in self.todos.values():
+            for tag in todo.tags:
+                if tag in tag_count:
+                    tag_count[tag] += 1
+                else:
+                    tag_count[tag] = 1
+
+        return tag_count
